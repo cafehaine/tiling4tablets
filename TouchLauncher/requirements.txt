@@ -1,0 +1,5 @@
+pyxdg
+
+# kivy deps
+pygame
+kivy
