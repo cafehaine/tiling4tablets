@@ -1,5 +1,3 @@
 pyxdg
-
-# kivy deps
-pygame
-kivy
+pgi
+gobject
