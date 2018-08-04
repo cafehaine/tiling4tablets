@@ -28,11 +28,13 @@ def fetch_application_list():
     application_directories = [join(p,'applications') for p in Menu.xdg_data_dirs]
 
     entries = []
+    names = []
 
     for directory in application_directories:
         for f in glob(join(directory,"**/*.desktop"), recursive=True):
             entry = DesktopEntry.DesktopEntry(f)
-            if not entry.getNoDisplay():
+            if not entry.getNoDisplay() and entry.getName() not in names:
+                names.append(entry.getName())
                 entry.path = f
                 entries.append(entry)
 
@@ -61,6 +63,7 @@ class FlowBoxWindow(Gtk.Window):
 
         self.add(scrolled)
         self.show_all()
+        self.fullscreen()
 
     def fill_flowbox(self, flowbox):
         for app in fetch_application_list():
@@ -74,5 +77,4 @@ class FlowBoxWindow(Gtk.Window):
 
 win = FlowBoxWindow()
 win.connect("destroy", Gtk.main_quit)
-win.show_all()
 Gtk.main()
