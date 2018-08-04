@@ -15,3 +15,7 @@ This is a simple script written in python to open a new empty workspace in i3.
 ## TouchLauncher
 
 This a simple start menu which you can scroll.
+
+## AutoRotate
+
+Reads an orientation sensor to call binaries based on the orientation.
