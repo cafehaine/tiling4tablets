@@ -1,7 +1,7 @@
 # Gui stuff
-import pgi
-pgi.require_version('Gtk', '3.0')
-from pgi.repository import Gtk, Gdk
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gdk
 
 # XDG stuff to fetch the application list
 from os.path import join
