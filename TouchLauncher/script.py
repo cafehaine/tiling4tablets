@@ -66,6 +66,12 @@ class FlowBoxWindow(Gtk.Window):
         self.fullscreen()
 
     def fill_flowbox(self, flowbox):
+        # close button
+        icon = Gtk.Image.new_from_icon_name("window-close",6)
+        icon.set_pixel_size(128)
+        button = Gtk.Button(label="Close", image=icon, image_position=Gtk.PositionType.TOP, always_show_image=True)
+        button.connect("clicked", Gtk.main_quit)
+        flowbox.add(button)
         for app in fetch_application_list():
             icon = Gtk.Image.new_from_icon_name(app.getIcon(),6)
             icon.set_pixel_size(128)
