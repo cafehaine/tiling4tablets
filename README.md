@@ -19,3 +19,10 @@ This a simple start menu which you can scroll.
 ## AutoRotate
 
 Reads an orientation sensor to call binaries based on the orientation.
+
+## navbar
+
+**WIP**
+
+A navbar like android, which will allow managing workspaces, starting a launcher,
+going back in apps, showing a virtual keyboard…
