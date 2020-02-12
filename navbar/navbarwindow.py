@@ -16,7 +16,7 @@ class NavBarWindow(Gtk.Window):
         GtkLayerShell.init_for_window(self)
         GtkLayerShell.auto_exclusive_zone_enable(self)
         css_provider = Gtk.CssProvider()
-        Gtk.CssProvider.load_from_path(css_provider, "navbar/test.css")
+        Gtk.CssProvider.load_from_path(css_provider, "navbar/themes/default/style.css")
 
         #Gtk.StyleContext.add_provider(self.get_style_context(), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
         Gtk.StyleContext.add_provider_for_screen(
