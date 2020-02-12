@@ -27,8 +27,14 @@ class NavBarWindow(Gtk.Window):
         self.main_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, homogeneous=False, spacing=0)
         self.add(self.main_box)
 
-        #TODO split in three groups (left, center, right)
-        self.buttons = []
+        self.left_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, homogeneous=False, spacing=0)
+        self.main_box.pack_start(self.left_box, False, False, 0)
+
+        self.center_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, homogeneous=False, spacing=0)
+        self.main_box.set_center_widget(self.center_box)
+
+        self.right_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, homogeneous=False, spacing=0)
+        self.main_box.pack_end(self.right_box, False, False, 0)
 
         self.load_config()
 
@@ -54,12 +60,12 @@ class NavBarWindow(Gtk.Window):
 
         for button in config.get('buttons_left', []):
             action_button = ActionButton(button.get('press', 'nop'), button.get('long_press', 'nop'))
-            self.main_box.add(action_button)
+            self.left_box.add(action_button)
 
         for button in config.get('buttons_center', []):
             action_button = ActionButton(button.get('press', 'nop'), button.get('long_press', 'nop'))
-            self.main_box.add(action_button)
+            self.center_box.add(action_button)
 
         for button in config.get('buttons_right', []):
             action_button = ActionButton(button.get('press', 'nop'), button.get('long_press', 'nop'))
-            self.main_box.add(action_button)
+            self.right_box.add(action_button)
