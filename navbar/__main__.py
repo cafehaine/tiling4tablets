@@ -17,7 +17,7 @@ window.connect("destroy", Gtk.main_quit)
 
 async def gtk_main_loop():
     while True:
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.02)
         while Gtk.events_pending():
             Gtk.main_iteration()
 
