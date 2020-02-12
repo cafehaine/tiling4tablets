@@ -8,6 +8,7 @@ from gi.repository import Gtk, Gdk, GtkLayerShell
 from yaml import safe_load
 
 from .action import ACTIONS
+from .actionbutton import ActionButton
 
 class NavBarWindow(Gtk.Window):
     def __init__(self):
@@ -26,6 +27,9 @@ class NavBarWindow(Gtk.Window):
         self.main_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, homogeneous=False, spacing=0)
         self.add(self.main_box)
 
+        #TODO split in three groups (left, center, right)
+        self.buttons = []
+
         self.load_config()
 
         self.set_horizontal()
@@ -35,21 +39,27 @@ class NavBarWindow(Gtk.Window):
         GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.TOP, 1)
         GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.RIGHT, 1)
         GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.BOTTOM, 1)
+        #TODO reorder buttons
 
     def set_horizontal(self):
         GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.LEFT, 1)
         GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.TOP, 0)
         GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.RIGHT, 1)
         GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.BOTTOM, 1)
-
-    def on_toggle_click(self, button):
-        if self.main_box.get_orientation() == Gtk.Orientation.VERTICAL:
-            self.main_box.set_orientation(Gtk.Orientation.HORIZONTAL)
-            self.set_horizontal()
-        else:
-            self.main_box.set_orientation(Gtk.Orientation.VERTICAL)
-            self.set_vertical()
+        #TODO reorder buttons
 
     def load_config(self):
         with open("navbar/config.yml") as data:
-            print(safe_load(data))
+            config = safe_load(data)
+
+        for button in config.get('buttons_left', []):
+            action_button = ActionButton(button.get('press', 'nop'), button.get('long_press', 'nop'))
+            self.main_box.add(action_button)
+
+        for button in config.get('buttons_center', []):
+            action_button = ActionButton(button.get('press', 'nop'), button.get('long_press', 'nop'))
+            self.main_box.add(action_button)
+
+        for button in config.get('buttons_right', []):
+            action_button = ActionButton(button.get('press', 'nop'), button.get('long_press', 'nop'))
+            self.main_box.add(action_button)
