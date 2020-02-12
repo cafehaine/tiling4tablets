@@ -5,6 +5,10 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("GtkLayerShell", "0.1")
 from gi.repository import Gtk, Gdk, GtkLayerShell
 
+from yaml import safe_load
+
+from .action import ACTIONS
+
 class NavBarWindow(Gtk.Window):
     def __init__(self):
         super().__init__(title="Navbar")
@@ -22,12 +26,7 @@ class NavBarWindow(Gtk.Window):
         self.main_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, homogeneous=False, spacing=0)
         self.add(self.main_box)
 
-        button = Gtk.Button.new_from_stock(Gtk.STOCK_OK)
-        button.connect('clicked', self.on_toggle_click)
-        self.main_box.add(button)
-
-        button2 = Gtk.Button.new_from_stock(Gtk.STOCK_OK)
-        self.main_box.add(button2)
+        self.load_config()
 
         self.set_horizontal()
 
@@ -50,3 +49,7 @@ class NavBarWindow(Gtk.Window):
         else:
             self.main_box.set_orientation(Gtk.Orientation.VERTICAL)
             self.set_vertical()
+
+    def load_config(self):
+        with open("navbar/config.yml") as data:
+            print(safe_load(data))

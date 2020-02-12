@@ -1,0 +1,15 @@
+buttons_left:
+  - icon: screenshot
+    press: screenshot
+buttons_center:
+  - icon: arrow
+    press: back
+    long_press: kill_focused_window
+  - icon: circle
+    press: toggle_launcher
+    long_press: pie_menu
+  - icon: square
+    press: toggle_ws_selector
+buttons_right:
+  - icon: keyboard
+    press: toggle_keyboard

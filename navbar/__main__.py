@@ -8,7 +8,8 @@ from gi.repository import Gtk, GtkLayerShell
 from i3ipc.aio import Connection
 from i3ipc import Event
 
-from .navbar import NavBarWindow
+from .navbarwindow import NavBarWindow
+from . import set_connection
 
 window = NavBarWindow()
 window.show_all()
@@ -23,6 +24,8 @@ async def gtk_main_loop():
 async def main():
     #TODO bind on OutputEvent to listen to screen rotation events.
     c = await Connection(auto_reconnect=True).connect()
+    set_connection(c)
+
     def on_window(self, e):
         print(e)
     c.on(Event.WINDOW, on_window)
