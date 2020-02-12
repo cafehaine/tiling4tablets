@@ -13,3 +13,9 @@ buttons_center:
 buttons_right:
   - icon: keyboard
     press: toggle_keyboard
+  - icon: close
+    press: kill_focused_window
+  - icon: close2
+    press:
+      - run_i3_command
+      - kill

@@ -59,13 +59,13 @@ class NavBarWindow(Gtk.Window):
             config = safe_load(data)
 
         for button in config.get('buttons_left', []):
-            action_button = ActionButton(button.get('press', 'nop'), button.get('long_press', 'nop'))
+            action_button = ActionButton(button.get('icon', '?'), button.get('press', 'nop'), button.get('long_press', 'nop'))
             self.left_box.add(action_button)
 
         for button in config.get('buttons_center', []):
-            action_button = ActionButton(button.get('press', 'nop'), button.get('long_press', 'nop'))
+            action_button = ActionButton(button.get('icon', '?'), button.get('press', 'nop'), button.get('long_press', 'nop'))
             self.center_box.add(action_button)
 
         for button in config.get('buttons_right', []):
-            action_button = ActionButton(button.get('press', 'nop'), button.get('long_press', 'nop'))
+            action_button = ActionButton(button.get('icon', '?'), button.get('press', 'nop'), button.get('long_press', 'nop'))
             self.right_box.add(action_button)
