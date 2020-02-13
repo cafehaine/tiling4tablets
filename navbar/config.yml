@@ -2,7 +2,7 @@ buttons_left:
   - icon: screenshot
     press: screenshot
 buttons_center:
-  - icon: arrow
+  - icon: back_arrow
     press: back
     long_press: kill_focused_window
   - icon: circle

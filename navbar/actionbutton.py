@@ -4,17 +4,20 @@ from typing import Callable, List, Union
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, Gdk
+from gi.repository import GLib, Gtk, Gdk, GdkPixbuf
 
 from .action import try_get_action
 
 LONG_PRESS_TIME = 0.8
+ICON_SIZE = 32
 
 ConfigAction = Union[str, List]
 
 class ActionButton(Gtk.Button):
     def __init__(self, icon: str, press: ConfigAction, long_press: ConfigAction):
-        super().__init__(label=icon)
+        super().__init__()
+        self.icon = icon
+        self.load_icon()
         self.press = press
         self.long_press = long_press
         self.button_down = False
@@ -23,6 +26,17 @@ class ActionButton(Gtk.Button):
         self.connect('button-press-event', self.press_event)
         self.connect('button-release-event', self.release_event)
         self.connect('leave-notify-event', self.leave_event)
+
+    def load_icon(self):
+        try:
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size("navbar/themes/default/icons/"+self.icon+".svg", ICON_SIZE, ICON_SIZE)
+        except GLib.Error:
+            try:
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size("navbar/themes/default/icons/default.svg", ICON_SIZE, ICON_SIZE)
+            except GLibError:
+                print("COULD NOT LOAD ICON OR DEFAULT ICON")
+        image = Gtk.Image.new_from_pixbuf(pixbuf)
+        self.set_image(image)
 
     def press_event(self, button: 'ActionButton', event: Gdk.Event):
         """ On button press, if button is 1, mark time stamp. """
