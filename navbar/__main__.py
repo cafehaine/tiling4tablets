@@ -16,19 +16,25 @@ window.show_all()
 window.connect("destroy", Gtk.main_quit)
 
 async def gtk_main_loop():
+    """ Asyncronous Gtk event loop. """
     while True:
         await asyncio.sleep(0.02)
         while Gtk.events_pending():
             Gtk.main_iteration()
 
 async def main():
-    #TODO bind on OutputEvent to listen to screen rotation events.
+    """ Set up the connection to i3/sway and wait for events. """
     c = await Connection(auto_reconnect=True).connect()
     set_connection(c)
 
-    def on_window(self, e):
+    def on_output(self, e):
+        #TODO At the moment, those events are not emitted by sway.
+        # When https://github.com/swaywm/sway/pull/4020 is implemented and
+        # merged, those events could be used to detect the orientation and move
+        # the bar accordingly.
         print(e)
-    c.on(Event.WINDOW, on_window)
+
+    c.on(Event.OUTPUT, on_output)
 
     await c.main()
 
